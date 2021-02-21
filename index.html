@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Coding Quiz</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body>
-    
+    <header class="top-row">
+        <div class="view-highscore" id="view-highscore">
+            <p><a href="">View High Scores</a></p>
+        </div>
+        <div class="timer" id="timer">
+            <p class="countdown-timer", id="countdown-timer">Countdown</p>
+        </div>
+    </header>
+    <section class="quiz-section">
+        <div class="question" id="question">
+            <h2 class="quiz-question" id="quiz-question">Test Question and this is extremely difficult that I want to share with all those I care the most about!  I welcome anyone to join me in this bootcamp class.</h2>
+        </div>
+        <div class="answer-choices" id="answer-choices">
+            <ol>
+                <li><button>Strings</button></li>
+                <li><button>Boolean</button></li>
+                <li><button>Numbers</button></li>
+                <li><button>Alerts</button></li>
+            </ul>
+        </div>
+        <div class="correct-wrong">
+            <p>Correct!</p>
+        </div>
+
+    </section>
+    <script src="./assets/js/app.js"></script>
 </body>
 </html>

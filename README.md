@@ -1,5 +1,7 @@
 # A Timed Coding Quiz Challenge
 
+## Project Objective
+
 
 ## User Story
 - AS A coding boot camp student
@@ -23,6 +25,12 @@
 The following animation demonstrates the application functionality:
 
 ![](assets/images/04-web-apis-homework-demo-1.gif)
+
+
+## Github Location
+
+
+## Deployed Application URL:
 
 
 
