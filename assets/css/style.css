@@ -15,14 +15,6 @@ body {
     border: 1px solid red;
     padding: 20px;
 }
-/*
-.view-highscore {
-    display: block;
-}
-.timer {
-    display: block;
-}
-*/
 .quiz-section {
     display:flex;
     flex-direction: column;
@@ -52,7 +44,6 @@ ol {
 li {
     list-style: inside;
     list-style-type: decimal;
-    /*background-color: rgb(44, 40, 54);*/
     margin: 5px;
     padding: 2px;
 }
