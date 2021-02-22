@@ -12,16 +12,22 @@ var timeLeft = setInterval(function() {
 
 
 // Create a function to store list of questions & answers or objects
-var questions = {
-    one: "What number is a winning number?",
-    two: "Which is considered last?"
-}
-var questionsChoices = {
-    listOne: [1, 2, 3, 4],
-    listTwo: [5, 6, 7, 8]
-}
-var answers = [1, 8];
 
+var myObj = {
+    questions: [
+        "winning number?", 
+        "last number?", 
+        "First name?", 
+        "Last Name?"
+    ],
+    answerChoices: [
+        [1, 2, 3, 4], 
+        [5, 6, 7, 8], 
+        [9, 10, 11, 12], 
+        [13, 14, 15, 16]
+    ],
+    answers: [1, 6, 12, 15]
+};
 
 // create a function to check the answers
 
