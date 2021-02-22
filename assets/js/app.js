@@ -10,9 +10,7 @@ var timeLeft = setInterval(function() {
     timeAllowed -=1;
 }, 1000);
 
-
 // Create a function to store list of questions & answers or objects
-
 var codingQuiz = {
     questions: [
         "winning number?", 
@@ -21,15 +19,26 @@ var codingQuiz = {
         "Last Name?"
     ],
     answerChoices: [
-        [1, 2, 3, 4], 
-        [5, 6, 7, 8], 
-        [9, 10, 11, 12], 
+        ["String", "Boolean", "Number", "Date"], 
+        ['" "', "' '", "( )", "{ }"], 
+        ["Nice", "Very Nice", "Not Nice", "So So"], 
         [13, 14, 15, 16]
     ],
     answers: [1, 6, 12, 15]
 };
 
-//function to cycle through the list of questions *************
+var numberOfQuestions = codingQuiz.questions.length;
+
+// remove list of answer choices once answer is chosen
+var removeAnswerChoices = function(i, numAnswerChoices) {
+    var removeListItem = document.getElementById("answers-list");
+    for (let j=0; j < numAnswerChoices; j++) {
+        removeListItem.removeChild(removeListItem.childNodes[j]);
+    }
+}
+
+
+//function to cycle through the list of questions that can be manipulated freely***********
 
 var startQuiz = function() {
     var numberOfQuestions = codingQuiz.questions.length;
@@ -40,13 +49,14 @@ var startQuiz = function() {
 
         var listChoice = document.getElementById("list-choice");
         for (let j=0; j < numAnswerChoices; j++){
-            console.log("i is " + i + " and j is " + j);
-            var addButton = document.createElement("LI");
-            addButton.innerHTML = codingQuiz.answerChoices[i][j];
-            document.getElementById("answers-list").appendChild(addButton);
+            
+            var addListItem = document.createElement("LI");
+            addListItem.innerHTML = codingQuiz.answerChoices[i][j];
+            document.getElementById("answers-list").appendChild(addListItem);
             //buttons.innerHTML = codingQuiz.answerChoices[i][j];
 
         }
+        removeAnswerChoices(i, numAnswerChoices);
     }
 }
 
