@@ -1,16 +1,15 @@
 // Create a function for countdown clock
-// var dateNow = new Date().getDate();
-// var monthNow = new Date().getMonth();
-// var hoursNow = new Date().getHours();
-// var dayNow = new Date().getDay();
-// var minutesNow = new Date().getMinutes();
-// var secondsNow = new Date().getSeconds();
-// console.log(dateNow);
-// console.log(monthNow);
-// console.log(hoursNow);
-// console.log(dayNow);
-// console.log(minutesNow);
-// console.log(secondsNow);
+//var countdownTimer = document.getElementById("timer");
+var timeAllowed = 75;
+var timeLeft = setInterval(function() {
+    if (timeAllowed < 0) {
+        clearInterval(timeLeft);
+    } else {
+        document.getElementById("timer").innerHTML = "Time: " + timeAllowed;
+    }
+    timeAllowed -=1;
+}, 1000);
+
 
 // Create a function to store list of questions & answers or objects
 var questions = {
@@ -71,7 +70,8 @@ localStorage.getItem(userInitials);
 
 // create a function to allow user to save score
 
-var submitToSaveScore = document.getElementById("#place-holder");
+var submitToSaveScore = document.getElementById("submit-score");
+
 
 
 // create a function to store scores 
