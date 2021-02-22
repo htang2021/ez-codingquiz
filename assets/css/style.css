@@ -43,18 +43,15 @@ body {
     width: 80%;
 }
 ol {
-    background-color: rgb(44, 40, 54);
-    color: white;
     min-width: max-content;
     width: 100px;
-    padding: 5px;
 }
 li {
     list-style: inside;
     list-style-type: decimal;
-    /*background-color: rgb(44, 40, 54);*/
-    margin: 5px;
+    margin: 5px 0px;
     padding: 2px;
+    list-style: none;
 }
 li button {
     background-color: rgb(44, 40, 54);
@@ -62,7 +59,8 @@ li button {
     min-width: max-content;
     width: 100px;
     padding: 5px;
-
+    border-radius: 5px;
+    text-align: left;
 }
 .correct-wrong {
     border-top: 2px solid brown;
