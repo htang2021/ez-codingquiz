@@ -35,14 +35,14 @@ body {
     align-items: center;
     margin: 0 13%;
 }
-.question {
+.question {    /* same element as questionContainer */
     border: 1px solid brown;
     width: 80%;
     display: block;
     text-align:left;
     padding-bottom: 15px;
 }
-.answer-choices {
+.answer-choices {   /* same element as choiceContainer */
     border: 2px solid greenyellow;
     width: 80%;
 }

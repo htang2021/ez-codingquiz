@@ -11,32 +11,68 @@ var timeLeft = setInterval(function() {
 }, 1000);
 
 // Create a function to store list of questions & answers or objects
-var codingQuiz = {
-    questions: [
-        "What type of data is 'Hello World!'", 
-        "To create a for loop, which expression is used to decrease your index value by 1?", 
-        "How would you answer if you are asked about the quality of the UCB Coding Bootcamp?", 
-        "To stage your code changes, what is the git command used?"
-    ],
-    answerChoices: [
-        ["1. String", "2. Boolean", "3. Number", "4. Date"], 
-        ["1. Element", "2. i++", "3. i--", "4. i += 4"], 
-        ["1. Nice", "2. Very Nice", "3. Not Nice", "4. So So"], 
-        ["1. git add", "git commit", "3. git push", "4. git clone"]
-    ],
-    answers: [1, 6, 12, 15]
-};
+// var codingQuiz = {
+//     questions: [
+//         "What type of data is 'Hello World!'", 
+//         "To create a for loop, which expression is used to decrease your index value by 1?", 
+//         "How would you answer if you are asked about the quality of the UCB Coding Bootcamp?", 
+//         "To stage your code changes, what is the git command used?"
+//     ],
+//     answerChoices: [
+//         ["1. String", "2. Boolean", "3. Number", "4. Date"], 
+//         ["1. Element", "2. i++", "3. i--", "4. i += 4"], 
+//         ["1. Nice", "2. Very Nice", "3. Not Nice", "4. So So"], 
+//         ["1. git add", "git commit", "3. git push", "4. git clone"]
+//     ],
+//     answers: [1, 6, 12, 15]
+// };
 
-var numberOfQuestions = codingQuiz.questions.length;
+var codingQuiz = [
+    {
+        question: "'Hello World!' data type?",
+        choices: {
+            one: "String",
+            two: "Boolean",
+            three: "Number"
+        },
+        answer: "one"
+    },
+    {
+        question: "Equivalent of i++?",
+        choices: {
+            one: "i=1+1",
+            two: "i=+1",
+            three: "i+=1"
+        },
+        answer: "three"
+    },
+    {
+        question: "Git command used to stage code?",
+        choices: {
+            one: "git add -A",
+            two: "git push...",
+            three: "git commit..."
+        },
+        answer: "three"
+    }
+]
+
+var numberOfQuestions = codingQuiz.length;
 var ulParentNode = document.getElementById("answers-list");
+var quizForm = document.getElementById("quiz-form");
 
 // Create the listed answer choices for [i] question with [j] number of choices
 var createAnswerChoices = function() {
+    //event.preventDefault();
+    //quizForm.reset();
+
     for (let i=0; i < 1; i++) {
         for (let j=0; j < 4; j++) {
             var answerChoicesEl = document.createElement("li");
             var answerChoicesButtonsEl = document.createElement("button");
+            answerChoicesButtonsEl.className="btn";
             answerChoicesButtonsEl.id="answer-choice"+[j];
+            answerChoicesButtonsEl.type="submit";
             answerChoicesButtonsEl.textContent = codingQuiz.answerChoices[i][j];
             answerChoicesEl.appendChild(answerChoicesButtonsEl);
             ulParentNode.appendChild(answerChoicesEl);
@@ -46,9 +82,11 @@ var createAnswerChoices = function() {
 
 // remove list of answer choices once answer is chosen
 var removeAnswerChoices = function(i, numAnswerChoices) {
-    var removeListItem = document.getElementById("answers-list");
-    for (let j=0; j < numAnswerChoices; j++) {
-        removeListItem.removeChild(removeListItem.childNodes[0]);
+    var ulParentNode = document.getElementById("answers-list");
+    for (let j=0; j < 4; j++) {
+        if (ulParentNode.hasChildNodes()) {
+            ulParentNode.removeChild(ulParentNode.childNodes[0]);
+        }
     }
 }
 

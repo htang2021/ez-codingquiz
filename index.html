@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <title>Coding Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
@@ -17,11 +17,12 @@
         </div>
     </header>
     <section class="quiz-section">
-        <div class="question" id="questions">
-            <h2 class="quiz-question" id="quiz-question"></h2>
-        </div>
-        <div class="answer-choices" id="answer-choices">
-            <ol id="answers-list">
+        <!-- <form id="quiz-form"> -->
+            <div class="question" id="questionContainer">
+                <h2 class="quiz-question" id="quiz-question"></h2>
+            </div>
+            <div class="answer-choices" id="choiceContainer">
+                <ol id="answers-list">
                 <!-- <li><button class="btn" onclick="test">1. Testing the code</button></li>
                 <li><button class="btn" onclick="test">2. Rewrite the code</button></li> -->
                 <!-- <li id="list-choice"><button  id="answer-choice"></button></li>
@@ -29,11 +30,12 @@
                 <li id="list-choice"><button  id="answer-choice"></button></li>
                 <li id="list-choice"><button  id="answer-choice"></button></li> -->
                 <!-- <li><button class="btn" id="start-quiz" type="submit">Start Quiz</button></li> -->
-            </ol>
-        </div>
-        <div class="correct-wrong">
-            <p>Correct!</p>
-        </div>
+                </ol>
+            </div>
+            <div class="answerContainer">
+                <p>Correct!</p>
+            </div>
+        <!-- </form> -->
 
     </section>
     <script src="./assets/js/app.js"></script>
