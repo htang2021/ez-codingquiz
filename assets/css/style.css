@@ -25,7 +25,10 @@ body {
 .timer {
     display: block;
     font-weight: bolder;
-    margin-right: 50px;
+    margin-right: 80px;
+    min-width: 80px;
+
+    border: 1px solid blue;
 }
 .quiz-section {
     display:flex;
@@ -35,12 +38,22 @@ body {
     align-items: center;
     margin: 0 13%;
 }
-.question {    /* same element as questionContainer */
+#quiz-question {
+    text-align: left;
+}
+.top-section {    /* same element as questionContainer */
     border: 1px solid brown;
     width: 80%;
     display: block;
     text-align:left;
     padding-bottom: 15px;
+}
+.introTitle {
+    text-align: center;
+}
+.intro {
+    text-align: center;
+    margin: 10px 0;
 }
 .answer-choices {   /* same element as choiceContainer */
     border: 2px solid greenyellow;
@@ -76,4 +89,24 @@ li button {
     margin-top: 15px;
     font-style: italic;
 }
-
+.bottom-section {
+    margin-top: 20px;
+    /* margin-left: 50%;
+    margin-right: 50%;
+    position: relative; */
+    border: 1px solid red;
+}
+.bottom-section button {
+    text-align: center;
+    color: white;
+    background-color: rgb(44, 40, 54);
+    border-radius: 5px;
+    padding: 5px;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+.bottom-section button:focus {
+    background-color: rgb(112, 67, 226);
+}

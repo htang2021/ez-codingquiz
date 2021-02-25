@@ -1,84 +1,122 @@
-// Create a function for countdown clock
-//var countdownTimer = document.getElementById("timer");
-var timeAllowed = 75;
-var timeLeft = setInterval(function() {
-    if (timeAllowed < 0) {
-        clearInterval(timeLeft);
-    } else {
-        document.getElementById("timer").innerHTML = "Time: " + timeAllowed;
-    }
-    timeAllowed -=1;
-}, 1000);
-
-// Create a function to store list of questions & answers or objects
-// var codingQuiz = {
-//     questions: [
-//         "What type of data is 'Hello World!'", 
-//         "To create a for loop, which expression is used to decrease your index value by 1?", 
-//         "How would you answer if you are asked about the quality of the UCB Coding Bootcamp?", 
-//         "To stage your code changes, what is the git command used?"
-//     ],
-//     answerChoices: [
-//         ["1. String", "2. Boolean", "3. Number", "4. Date"], 
-//         ["1. Element", "2. i++", "3. i--", "4. i += 4"], 
-//         ["1. Nice", "2. Very Nice", "3. Not Nice", "4. So So"], 
-//         ["1. git add", "git commit", "3. git push", "4. git clone"]
-//     ],
-//     answers: [1, 6, 12, 15]
-// };
+// Array of objects to keep questions, choices and answers together ******
 
 var codingQuiz = [
     {
-        question: "'Hello World!' data type?",
-        choices: {
-            one: "String",
-            two: "Boolean",
-            three: "Number"
-        },
-        answer: "one"
+        question: "Commonly used data types DO NOT include:",
+        choices: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts"
     },
     {
-        question: "Equivalent of i++?",
-        choices: {
-            one: "i=1+1",
-            two: "i=+1",
-            three: "i+=1"
-        },
-        answer: "three"
+        question: "The condition in an if/else statement is enclosed with _____",
+        choices: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+        answer: "parenthesis"
     },
     {
-        question: "Git command used to stage code?",
-        choices: {
-            one: "git add -A",
-            two: "git push...",
-            three: "git commit..."
-        },
-        answer: "three"
+        question: "Arrays in JavaScript can be used to store ______",
+        choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        answer: "all of the above"
+    },
+    {
+        question: "String values must be enclosed within ______ when being assigned to variables.",
+        choices: ["commas", "curly brackets", "quotes", "parenthesis"],
+        answer: "quotes"
+    },
+    {
+        question: "A very useful tool during development and debugging for printing content to the debugger is:",
+        choices: ["JavaScript", "terminal/bash", "for loops", "console.log"],
+        answer: "console.log"
     }
-]
+];
 
+//Assiging elements to global variables **************
+
+const introduction = "Try to answer the following code-related questions " +
+    "within the time limit. Keep in mind that incorrect answers will " +
+    "penalize your score/time by ten seconds!";
+var introTitle = document.querySelector(".introTitle");
+var intro = document.querySelector(".intro");
+var quizQuestion = document.getElementById("quiz-question");
+var initializeTimer = document.getElementById("countdown-timer");
+var startButtonContainer = document.querySelector(".bottom-section");
+
+var answerChoicesContainer =document.querySelector(".answer-choices");
 var numberOfQuestions = codingQuiz.length;
-var ulParentNode = document.getElementById("answers-list");
+var olParentNode = document.getElementById("answers-list");
 var quizForm = document.getElementById("quiz-form");
 
-// Create the listed answer choices for [i] question with [j] number of choices
-var createAnswerChoices = function() {
-    //event.preventDefault();
-    //quizForm.reset();
+var timeAllowed;
 
-    for (let i=0; i < 1; i++) {
-        for (let j=0; j < 4; j++) {
+//Landing Page to start/re-start Coding Quiz Challenge **************
+var landingPage = function() {
+    document.querySelector(".top-section").style.width = "60%";
+    document.querySelector(".intro").style.width = "60%";
+    document.querySelector(".bottom-section").style.width = "60%";
+    introTitle.textContent = "Coding Quiz Challenge";
+    intro.textContent = introduction;
+    initializeTimer.textContent = "Time: 0";
+    startButtonContainer.innerHTML = "<button id='start-button'>Start Quiz</button>";
+    return;
+};
+
+// Check if answer is correct or wrong!
+var checkAnswer = function(){
+
+}
+
+//Quiz has begun! *****************************************
+
+function quizStarted() {
+    //Timer starts ***
+    timeAllowed = 75;
+    var timeLeft = setInterval(function() {
+        if (timeAllowed < 0) {
+            clearInterval(timeLeft);
+        } else {
+            document.getElementById("timer").innerHTML = "Time: " + timeAllowed;
+        }
+        timeAllowed -=1;
+    }, 1000);
+
+    // Loops thru questions in the codingQuiz array *********
+    for (let i=0; i < codingQuiz.length; i++) {
+        quizQuestion.textContent = codingQuiz[i].question;
+        let numOfChoices = codingQuiz[i].question.length;
+        for (let j=0; j<numOfChoices; j++) {
             var answerChoicesEl = document.createElement("li");
             var answerChoicesButtonsEl = document.createElement("button");
             answerChoicesButtonsEl.className="btn";
-            answerChoicesButtonsEl.id="answer-choice"+[j];
+            answerChoicesButtonsEl.id="answer-choice"[j];
             answerChoicesButtonsEl.type="submit";
-            answerChoicesButtonsEl.textContent = codingQuiz.answerChoices[i][j];
+            answerChoicesButtonsEl.textContent = codingQuiz[i].choices[j];
             answerChoicesEl.appendChild(answerChoicesButtonsEl);
-            ulParentNode.appendChild(answerChoicesEl);
+            olParentNode.appendChild(answerChoicesEl);
+            answerChoicesContainer.appendChild(olParentNode);
         }
+
+        if (checkAnswer()) {
+            
+        }
+        
+
+
     }
+
+
 }
+
+
+
+//Click the button to start the quiz!!  ****************
+var startingQuiz = function() {
+    var startButton = document.getElementById("start-button");
+    startButton.addEventListener("click", quizStarted);
+
+}
+
+landingPage();
+startingQuiz ();
+
+
 
 // remove list of answer choices once answer is chosen
 var removeAnswerChoices = function(i, numAnswerChoices) {
@@ -90,12 +128,6 @@ var removeAnswerChoices = function(i, numAnswerChoices) {
     }
 }
 
-// Check to see if quiz question has been answered
-var isQuestionAnswered = function() {
-
-    //compare clicked answer versus actual to determine "Right" or "Wrong"
-
-}
 
 // Determining if question answered is correct or wrong!
 var answeredCorrectOrWrong = function() {
@@ -105,7 +137,7 @@ var answeredCorrectOrWrong = function() {
 //function to cycle through the list of questions that can be manipulated freely***********
 
 var startQuiz = function() {
-    var numberOfQuestions = codingQuiz.questions.length;
+    var numberOfQuestions = codingQuiz.length;
     //var answersChoicesEl = document.querySelector("#answers-list");
     for (let i=0; i < numberOfQuestions; i++) {
         document.getElementById("quiz-question").innerHTML = codingQuiz.questions[i];
@@ -136,7 +168,7 @@ var startQuiz = function() {
     }
 }
 
-startQuiz();
+//startQuiz();
 // create a function to check the answers
 
 
