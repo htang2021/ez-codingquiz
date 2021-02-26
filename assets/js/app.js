@@ -38,7 +38,8 @@ var intro = document.querySelector(".intro");
 var quizQuestion = document.getElementById("quiz-question");
 var initializeTimer = document.getElementById("countdown-timer");
 var startButtonContainer = document.querySelector(".bottom-section");
-
+var rightOrWrong = document.querySelector(".answerContainer");
+var showResult = document.getElementById("result-response");
 var answerChoicesContainer =document.querySelector(".answer-choices");
 var numberOfQuestions = codingQuiz.length;
 var olParentNode = document.getElementById("answers-list");
@@ -60,7 +61,7 @@ var landingPage = function() {
 
 // Check if answer is correct or wrong!
 var checkAnswer = function(){
-
+    return false;
 }
 
 //Quiz has begun! *****************************************
@@ -80,12 +81,12 @@ function quizStarted() {
     // Loops thru questions in the codingQuiz array *********
     for (let i=0; i < codingQuiz.length; i++) {
         quizQuestion.textContent = codingQuiz[i].question;
-        let numOfChoices = codingQuiz[i].question.length;
+        let numOfChoices = codingQuiz[i].choices.length;
         for (let j=0; j<numOfChoices; j++) {
             var answerChoicesEl = document.createElement("li");
             var answerChoicesButtonsEl = document.createElement("button");
             answerChoicesButtonsEl.className="btn";
-            answerChoicesButtonsEl.id="answer-choice"[j];
+            answerChoicesButtonsEl.id="answer-choice"+[j];
             answerChoicesButtonsEl.type="submit";
             answerChoicesButtonsEl.textContent = codingQuiz[i].choices[j];
             answerChoicesEl.appendChild(answerChoicesButtonsEl);
@@ -94,8 +95,11 @@ function quizStarted() {
         }
 
         if (checkAnswer()) {
-            
-        }
+            showResult.textContent = "Correct!";
+        } else {
+            showResult.textContent = "Wrong!";
+        };
+        return;
         
 
 
