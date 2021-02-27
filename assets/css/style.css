@@ -79,6 +79,9 @@ li button {
     border-radius: 5px;
     text-align: left;
 }
+li button:focus {
+    background-color: rgb(112, 67, 226);
+}
 .correct-wrong {
     border-top: 2px solid brown;
     width: 80%;
@@ -91,10 +94,8 @@ li button {
 }
 .bottom-section {
     margin-top: 20px;
-    /* margin-left: 50%;
-    margin-right: 50%;
-    position: relative; */
     border: 1px solid red;
+    height: 50px;
 }
 .bottom-section button {
     text-align: center;

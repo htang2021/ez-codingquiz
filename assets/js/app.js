@@ -35,6 +35,7 @@ const introduction = "Try to answer the following code-related questions " +
     "penalize your score/time by ten seconds!";
 var introTitle = document.querySelector(".introTitle");
 var intro = document.querySelector(".intro");
+var writeUp = document.getElementById("intro-writeup");
 var quizQuestion = document.getElementById("quiz-question");
 var initializeTimer = document.getElementById("countdown-timer");
 var startButtonContainer = document.querySelector(".bottom-section");
@@ -53,20 +54,32 @@ var landingPage = function() {
     document.querySelector(".intro").style.width = "60%";
     document.querySelector(".bottom-section").style.width = "60%";
     introTitle.textContent = "Coding Quiz Challenge";
-    intro.textContent = introduction;
+    writeUp.textContent = introduction;
     initializeTimer.textContent = "Time: 0";
     startButtonContainer.innerHTML = "<button id='start-button'>Start Quiz</button>";
     return;
 };
 
-// Check if answer is correct or wrong!
-var checkAnswer = function(){
+// Check if answer is correct (return true) or wrong (return false)
+var checkAnswer = function(i, j){
+    console.log(`Clicked ${codingQuiz[i].choices[j]}`);
     return false;
+}
+
+// remove list of answer choices once answer is chosen
+var removeAnswerChoices = function() {
+    for (let j=0; j < 4; j++) {
+        if (ulParentNode.hasChildNodes()) {
+            ulParentNode.removeChild(ulParentNode.childNodes[0]);
+        }
+    }
 }
 
 //Quiz has begun! *****************************************
 
 function quizStarted() {
+    //clear the content in the container
+    intro.removeChild(writeUp);
     //Timer starts ***
     timeAllowed = 75;
     var timeLeft = setInterval(function() {
@@ -82,27 +95,31 @@ function quizStarted() {
     for (let i=0; i < codingQuiz.length; i++) {
         quizQuestion.textContent = codingQuiz[i].question;
         let numOfChoices = codingQuiz[i].choices.length;
+
+        //loop thru and display the choices and listen for click based on ID
         for (let j=0; j<numOfChoices; j++) {
             var answerChoicesEl = document.createElement("li");
             var answerChoicesButtonsEl = document.createElement("button");
             answerChoicesButtonsEl.className="btn";
             answerChoicesButtonsEl.id="answer-choice"+[j];
-            answerChoicesButtonsEl.type="submit";
+            answerChoicesButtonsEl.type="button";
             answerChoicesButtonsEl.textContent = codingQuiz[i].choices[j];
             answerChoicesEl.appendChild(answerChoicesButtonsEl);
             olParentNode.appendChild(answerChoicesEl);
             answerChoicesContainer.appendChild(olParentNode);
+            var buttonClicked = document.getElementById("answer-choice"+[j]);
+            buttonClicked.addEventListener("click", checkAnswer);
         }
 
-        if (checkAnswer()) {
-            showResult.textContent = "Correct!";
+        if (checkAnswer) {
+            startButtonContainer.innerHTML='';
+            rightOrWrong.innerHTML = "<p id='result-response'>Correcto!</p>";
+
         } else {
-            showResult.textContent = "Wrong!";
+            startButtonContainer.removeChild(startButton);
+            rightOrWrong.innerHTML = "<p id='result-response'>Wrong!</p>";
         };
-        return;
-        
-
-
+        //removeAnswerChoices();
     }
 
 
