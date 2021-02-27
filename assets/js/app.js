@@ -118,28 +118,13 @@ function quizStarted() {
     //Timer starts ***
     countDownClock();
     if (stillTimeLeft) {
-
-        // Loops thru questions in the codingQuiz array *********
-        // while time left is > 0
-
-        //while (timeAllowed > 0) {
         
         quizQuestion.textContent = codingQuiz[currentQuestion].question;
         let numOfChoices = codingQuiz[currentQuestion].choices.length;
             
         //loop thru and display the choices and listen for click based on ID
+        nextQuestion(currentQuestion);
         for (let j=0; j<numOfChoices; j++) {
-            //dynamically create elements for each of the answer choices
-            var answerChoicesEl = document.createElement("li");
-            var answerChoicesButtonsEl = document.createElement("button");
-            answerChoicesButtonsEl.className="btn";
-            answerChoicesButtonsEl.id="answer-choice"+[j];
-            answerChoicesButtonsEl.type="button";
-            answerChoicesButtonsEl.textContent = codingQuiz[currentQuestion].choices[j];
-            //appending created elements to the parent node - OL (ordered list)
-            answerChoicesEl.appendChild(answerChoicesButtonsEl); //button to li
-            olParentNode.appendChild(answerChoicesEl); //li to ol
-            //answerChoicesContainer.appendChild(olParentNode); //ol to container
 
             //map j number of <button> elements with j index id attribute
             //and listen for click events for each of the <button> elements
@@ -155,29 +140,13 @@ function quizStarted() {
                 currentQuestion++;
                 removeAnswerChoices(currentQuestion);
                 nextQuestion(currentQuestion);
-                // quizQuestion.textContent = codingQuiz[currentQuestion].question;
-                // var answerChoicesEl = document.createElement("li");
-                // var answerChoicesButtonsEl = document.createElement("button");
-                // answerChoicesButtonsEl.className="btn";
-                // answerChoicesButtonsEl.id="answer-choice"+[j];
-                // answerChoicesButtonsEl.type="button";
-                // answerChoicesButtonsEl.textContent = codingQuiz[currentQuestion].choices[j];
-                // //appending created elements to the parent node - OL (ordered list)
-                // answerChoicesEl.appendChild(answerChoicesButtonsEl); //button to li
-                // olParentNode.appendChild(answerChoicesEl); //li to ol
                     
             }); 
         }
-        //once a click event occurs and "Correct" or "Wrong" is displayed,
-        //call function to remove answerchoices elements so new set of
-        //choices can be display
-
-        //removeAnswerChoices();
     
     } else {
-        console.log("Time has run out");
+         console.log("Time has run out");
     };
-
 
 }
 
