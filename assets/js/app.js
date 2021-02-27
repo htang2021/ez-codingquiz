@@ -94,6 +94,8 @@ function quizStarted() {
     }, 1000);
 
     // Loops thru questions in the codingQuiz array *********
+    // while time left is > 0
+    
     //while (timeAllowed > 0) {
         for (let i=0; i < codingQuiz.length; i++) {
             quizQuestion.textContent = codingQuiz[i].question;
@@ -113,6 +115,9 @@ function quizStarted() {
                 olParentNode.appendChild(answerChoicesEl); //li to ol
                 //answerChoicesContainer.appendChild(olParentNode); //ol to container
 
+                //map j number of <button> elements with j index id attribute
+                //and listen for click events for each of the <button> elements
+                //through j loop
                 var buttonClicked = document.getElementById("answer-choice"+[j]);
                 buttonClicked.addEventListener("click", function() {
                     startButtonContainer.innerHTML='';
@@ -123,7 +128,10 @@ function quizStarted() {
                     }
                 });
             }
-            
+            //once a click event occurs and "Correct" or "Wrong" is displayed,
+            //call function to remove answerchoices elements so new set of
+            //choices can be display
+
             //removeAnswerChoices();
         }
     //}
@@ -131,8 +139,6 @@ function quizStarted() {
 
 
 }
-
-
 
 //Click the button to start the quiz!!  ****************
 var startingQuiz = function() {
@@ -156,11 +162,6 @@ var removeAnswerChoices = function(i, numAnswerChoices) {
     }
 }
 
-
-// Determining if question answered is correct or wrong!
-var answeredCorrectOrWrong = function() {
-
-}
 
 //function to cycle through the list of questions that can be manipulated freely***********
 
