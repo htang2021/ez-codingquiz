@@ -39,6 +39,7 @@ var writeUp = document.getElementById("intro-writeup");
 var quizQuestion = document.getElementById("quiz-question");
 var initializeTimer = document.getElementById("countdown-timer");
 var startButtonContainer = document.querySelector(".bottom-section");
+var startButton = document.getElementById("start-button");
 var rightOrWrong = document.querySelector(".answerContainer");
 var showResult = document.getElementById("result-response");
 var answerChoicesContainer =document.querySelector(".answer-choices");
@@ -61,10 +62,10 @@ var landingPage = function() {
 };
 
 // Check if answer is correct (return true) or wrong (return false)
-var checkAnswer = function(i, j){
-    console.log(`Clicked ${codingQuiz[i].choices[j]}`);
-    return false;
-}
+// var checkAnswer = function(){
+//     console.log(`Clicked ${codingQuiz[i].choices[j]}`);
+//     return false;
+// }
 
 // remove list of answer choices once answer is chosen
 var removeAnswerChoices = function() {
@@ -80,6 +81,7 @@ var removeAnswerChoices = function() {
 function quizStarted() {
     //clear the content in the container
     intro.removeChild(writeUp);
+    //startButtonContainer.removeChild(startButton);
     //Timer starts ***
     timeAllowed = 75;
     var timeLeft = setInterval(function() {
@@ -92,35 +94,40 @@ function quizStarted() {
     }, 1000);
 
     // Loops thru questions in the codingQuiz array *********
-    for (let i=0; i < codingQuiz.length; i++) {
-        quizQuestion.textContent = codingQuiz[i].question;
-        let numOfChoices = codingQuiz[i].choices.length;
+    //while (timeAllowed > 0) {
+        for (let i=0; i < codingQuiz.length; i++) {
+            quizQuestion.textContent = codingQuiz[i].question;
+            let numOfChoices = codingQuiz[i].choices.length;
+            
+            //loop thru and display the choices and listen for click based on ID
+            for (let j=0; j<numOfChoices; j++) {
+                //dynamically create elements for each of the answer choices
+                var answerChoicesEl = document.createElement("li");
+                var answerChoicesButtonsEl = document.createElement("button");
+                answerChoicesButtonsEl.className="btn";
+                answerChoicesButtonsEl.id="answer-choice"+[j];
+                answerChoicesButtonsEl.type="button";
+                answerChoicesButtonsEl.textContent = codingQuiz[i].choices[j];
+                //appending created elements to the parent node - OL (ordered list)
+                answerChoicesEl.appendChild(answerChoicesButtonsEl); //button to li
+                olParentNode.appendChild(answerChoicesEl); //li to ol
+                //answerChoicesContainer.appendChild(olParentNode); //ol to container
 
-        //loop thru and display the choices and listen for click based on ID
-        for (let j=0; j<numOfChoices; j++) {
-            var answerChoicesEl = document.createElement("li");
-            var answerChoicesButtonsEl = document.createElement("button");
-            answerChoicesButtonsEl.className="btn";
-            answerChoicesButtonsEl.id="answer-choice"+[j];
-            answerChoicesButtonsEl.type="button";
-            answerChoicesButtonsEl.textContent = codingQuiz[i].choices[j];
-            answerChoicesEl.appendChild(answerChoicesButtonsEl);
-            olParentNode.appendChild(answerChoicesEl);
-            answerChoicesContainer.appendChild(olParentNode);
-            var buttonClicked = document.getElementById("answer-choice"+[j]);
-            buttonClicked.addEventListener("click", checkAnswer);
+                var buttonClicked = document.getElementById("answer-choice"+[j]);
+                buttonClicked.addEventListener("click", function() {
+                    startButtonContainer.innerHTML='';
+                    if(codingQuiz[i].choices[j] === codingQuiz[i].answer) {
+                        rightOrWrong.innerHTML = "<p id='result-response'>Correcto!</p>";
+                    } else {
+                        rightOrWrong.innerHTML = "<p id='result-response'>Wrong!</p>";
+                    }
+                });
+            }
+            
+            //removeAnswerChoices();
         }
-
-        if (checkAnswer) {
-            startButtonContainer.innerHTML='';
-            rightOrWrong.innerHTML = "<p id='result-response'>Correcto!</p>";
-
-        } else {
-            startButtonContainer.removeChild(startButton);
-            rightOrWrong.innerHTML = "<p id='result-response'>Wrong!</p>";
-        };
-        //removeAnswerChoices();
-    }
+    //}
+    console.log("Time has run out");
 
 
 }
