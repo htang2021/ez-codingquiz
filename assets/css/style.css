@@ -48,9 +48,6 @@ body {
     text-align:left;
     padding-bottom: 15px;
 }
-.introTitle {
-    text-align: center;
-}
 .intro {
     text-align: center;
     margin: 10px 0;
@@ -58,7 +55,7 @@ body {
 .answer-choices {   /* same element as choiceContainer */
     border: 2px solid greenyellow;
     width: 80%;
-    min-height: 70px;
+    min-height: 30px;
 }
 ol {
     min-width: max-content;

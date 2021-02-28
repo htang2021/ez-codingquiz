@@ -33,6 +33,7 @@ var codingQuiz = [
 const introduction = "Try to answer the following code-related questions " +
     "within the time limit. Keep in mind that incorrect answers will " +
     "penalize your score/time by ten seconds!";
+var headerSection = document.querySelector(".top-row");
 var introTitle = document.querySelector(".introTitle");
 var intro = document.querySelector(".intro");
 var writeUp = document.getElementById("intro-writeup");
@@ -49,39 +50,85 @@ var olParentNode = document.getElementById("answers-list");
 var quizForm = document.getElementById("quiz-form");
 var currentQuestion = 0;
 var timeAllowed = 0;
+let score = 0;
+
+
+//Check if countdown timer is still > 0
+var stillTimeLeft = function(timeAllowed) {
+    timeAllowed > 0? true : false;
+}
 
 //Landing Page to start/re-start Coding Quiz Challenge **************
 var landingPage = function() {
     document.querySelector(".top-section").style.width = "60%";
     document.querySelector(".intro").style.width = "60%";
     document.querySelector(".bottom-section").style.width = "60%";
+    introTitle.style.textAlign = "center";
     introTitle.textContent = "Coding Quiz Challenge";
     writeUp.textContent = introduction;
     initializeTimer.textContent = "Time: 0";
     startButtonContainer.innerHTML = "<button id='start-button'>Start Quiz</button>";
-    //return;
 };
 
-var nextQuestion = function(currentQuestion) {
+var checkAnswer = () => {
+
+    let numOfChoices = codingQuiz[currentQuestion].choices.length;
+    if (stillTimeLeft){
+        for (let j=0; j<numOfChoices; j++) {
+
+            //map j number of <button> elements with j index id attribute
+            //and listen for click events for each of the <button> elements
+            //through j loop
+            var buttonClicked = document.getElementById("answer-choice"+[j]);
+            buttonClicked.addEventListener("click", function() {
+                startButtonContainer.innerHTML='';
+                if(codingQuiz[currentQuestion].choices[j] === codingQuiz[currentQuestion].answer) {
+                    bottomContainer.innerHTML = "<p id='result-response'>Correcto!</p>";
+                } else {
+                    bottomContainer.innerHTML = "<p id='result-response'>Wrong!</p>";
+                    timeAllowed -= 65;
+                }
+                currentQuestion++;
+                if (currentQuestion < codingQuiz.length) {
+                    removeAnswerChoices(currentQuestion-1);
+                    nextQuestion(currentQuestion);
+                } else {
+                    quizCompleted();
+                }
+                    
+            }); 
+        }
+    } else {
+        //clearInterval(timeLeft);
+        quizCompleted();
+    }
+}
+
+var nextQuestion = (currentQuestion) => {
     quizQuestion.textContent = codingQuiz[currentQuestion].question;
     let numOfChoices = codingQuiz[currentQuestion].choices.length;
-    for (let j=0; j<numOfChoices; j++) {
-        //dynamically create elements for each of the answer choices
-        var answerChoicesEl = document.createElement("li");
-        var answerChoicesButtonsEl = document.createElement("button");
-        answerChoicesButtonsEl.className="btn";
-        answerChoicesButtonsEl.id="answer-choice"+[j];
-        answerChoicesButtonsEl.type="button";
-        answerChoicesButtonsEl.textContent = codingQuiz[currentQuestion].choices[j];
-        //appending created elements to the parent node - OL (ordered list)
-        answerChoicesEl.appendChild(answerChoicesButtonsEl); //button to li
-        olParentNode.appendChild(answerChoicesEl); //li to ol
+    if (stillTimeLeft) {
+        for (let j=0; j<numOfChoices; j++) {
+            //dynamically create elements for each of the answer choices
+            var answerChoicesEl = document.createElement("li");
+            var answerChoicesButtonsEl = document.createElement("button");
+            answerChoicesButtonsEl.className="btn";
+            answerChoicesButtonsEl.id="answer-choice"+[j];
+            answerChoicesButtonsEl.type="button";
+            answerChoicesButtonsEl.textContent = codingQuiz[currentQuestion].choices[j];
+            //appending created elements to the parent node - OL (ordered list)
+            answerChoicesEl.appendChild(answerChoicesButtonsEl); //button to li
+            olParentNode.appendChild(answerChoicesEl); //li to ol
+        }
+        checkAnswer();
+    } else {
+        //clearInterval(timeLeft);
+        quizCompleted();
     }
-    //return;
 }
 
 // remove list of answer choices once answer is chosen
-var removeAnswerChoices = function(currentQuestion) {
+var removeAnswerChoices = (currentQuestion) => {
     let numOfChoices = codingQuiz[currentQuestion].choices.length;
     console.log(`current question is ${currentQuestion} and the length is ${numOfChoices}`);
     for (let j=0; j < numOfChoices; j++) {
@@ -91,12 +138,14 @@ var removeAnswerChoices = function(currentQuestion) {
     }
 }
 
-//Check if countdown timer is still > 0
-var stillTimeLeft = function(timeAllowed) {
-    timeAllowed > 0 ? true : false;
-}
+// //Check if countdown timer is still > 0
+// var stillTimeLeft = function(timeAllowed) {
+//     timeAllowed > 0 ? true : false;
+// }
 
-var quizCompleted = function() {
+var quizCompleted = () => {
+    //clearInterval(timeLeft);
+    //score = timeLeft;
     quizQuestion.textContent = "";
     choiceContainer.textContent = "";
     bottomContainer.textContent = "";
@@ -108,12 +157,16 @@ var quizCompleted = function() {
     <input type="submit" value="Submit">
     </form>`;
     var initialSubmit = document.getElementById("submit-form");
-    var userInitials = document.getElementById("initials").value;
-    choiceContainer.appendChild(initialSubmit);
+    //var userInitials = document.querySelector("input[name='initials']").value;
+    var userInitials = document.querySelector("#initials").value;
+    console.log(`Initial entered is: ${userInitials}`);
+    //choiceContainer.appendChild(initialSubmit);
     initialSubmit.addEventListener("submit", function() {
+        headerSection.style.visibility = "hidden";
         quizQuestion.textContent = "";
         choiceContainer.textContent = "";
         bottomContainer.textContent = "";
+
         quizQuestion.textContent = "High Scores";
         choiceContainer.innerHTML = `<li>${userInitials} - ${timeAllowed+1}</li><br>
             <button type="button" value="goBack" id="goBackButton">Go Back</button>
@@ -129,14 +182,20 @@ function displayScore() {
     choiceContainer.innerHTML = "<li>userInitials</li>"
 }
 
+// //Check if countdown timer is still > 0
+// var stillTimeLeft = function(timeAllowed) {
+//     timeAllowed > 0? true : false;
+// }
+
 //Counting down from 75 seconds
 var countDownClock = function() {
     timeAllowed = 75;
     var timeLeft = setInterval(function() {
         if (timeAllowed < 0) {
+            clearInterval(timeLeft);
             timeAllowed = 0;
             quizCompleted();
-            clearInterval(timeLeft);
+            //clearInterval(timeLeft);
         } else {
             document.getElementById("timer").innerHTML = "Time: " + timeAllowed;
         }
@@ -154,38 +213,10 @@ function quizStarted() {
     //Timer starts ***
     countDownClock();
     if (stillTimeLeft) {
-        
-        quizQuestion.textContent = codingQuiz[currentQuestion].question;
-        let numOfChoices = codingQuiz[currentQuestion].choices.length;
-            
-        //loop thru and display the choices and listen for click based on ID
         nextQuestion(currentQuestion);
-        for (let j=0; j<numOfChoices; j++) {
-
-            //map j number of <button> elements with j index id attribute
-            //and listen for click events for each of the <button> elements
-            //through j loop
-            var buttonClicked = document.getElementById("answer-choice"+[j]);
-            buttonClicked.addEventListener("click", function() {
-                startButtonContainer.innerHTML='';
-                if(codingQuiz[currentQuestion].choices[j] === codingQuiz[currentQuestion].answer) {
-                    bottomContainer.innerHTML = "<p id='result-response'>Correcto!</p>";
-                } else {
-                    bottomContainer.innerHTML = "<p id='result-response'>Wrong!</p>";
-                    timeAllowed -= 65;
-                }
-                removeAnswerChoices(currentQuestion);
-                currentQuestion++;
-                //removeAnswerChoices(currentQuestion);
-                nextQuestion(currentQuestion);
-                    
-            }); 
-        }
-    
     } else {
          console.log("Time has run out");
     };
-
 }
 
 
