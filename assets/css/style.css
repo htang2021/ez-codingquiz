@@ -58,6 +58,7 @@ body {
 .answer-choices {   /* same element as choiceContainer */
     border: 2px solid greenyellow;
     width: 80%;
+    min-height: 70px;
 }
 ol {
     min-width: max-content;

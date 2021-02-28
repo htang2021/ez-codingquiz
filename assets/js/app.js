@@ -41,7 +41,7 @@ var quizQuestion = document.getElementById("quiz-question");
 var initializeTimer = document.getElementById("countdown-timer");
 var startButtonContainer = document.querySelector(".bottom-section");
 var startButton = document.getElementById("start-button");
-var rightOrWrong = document.querySelector(".answerContainer");
+var bottomContainer = document.querySelector(".answerContainer");
 var showResult = document.getElementById("result-response");
 var answerChoicesContainer =document.querySelector(".answer-choices");
 var numberOfQuestions = codingQuiz.length;
@@ -99,12 +99,34 @@ var stillTimeLeft = function(timeAllowed) {
 var quizCompleted = function() {
     quizQuestion.textContent = "";
     choiceContainer.textContent = "";
+    bottomContainer.textContent = "";
     quizQuestion.textContent = "All Done!";
-    choiceContainer.innerHTML = `<p>Your final score is ${timeAllowed + 1}.
+    choiceContainer.innerHTML = `<p>Your final score is ${timeAllowed}.
     <br>
-    <label for="initials">Enter Initials</label>
+    <form id="submit-form">Enter Initials: 
     <input type="text" id="initials" name="initials">
-    <input type="submit" value="Submit">`
+    <input type="submit" value="Submit">
+    </form>`;
+    var initialSubmit = document.getElementById("submit-form");
+    var userInitials = document.getElementById("initials").value;
+    choiceContainer.appendChild(initialSubmit);
+    initialSubmit.addEventListener("submit", function() {
+        quizQuestion.textContent = "";
+        choiceContainer.textContent = "";
+        bottomContainer.textContent = "";
+        quizQuestion.textContent = "High Scores";
+        choiceContainer.innerHTML = `<li>${userInitials} - ${timeAllowed+1}</li><br>
+            <button type="button" value="goBack" id="goBackButton">Go Back</button>
+            <button type="button" value="clearScore" id="clearScore">Clear High Scores</button>`;
+    });
+}
+
+function displayScore() {
+    quizQuestion.textContent = "";
+    choiceContainer.textContent = "";
+    bottomContainer.textContent = "";
+    quizQuestion.textContent = "High Scores";
+    choiceContainer.innerHTML = "<li>userInitials</li>"
 }
 
 //Counting down from 75 seconds
@@ -112,6 +134,7 @@ var countDownClock = function() {
     timeAllowed = 75;
     var timeLeft = setInterval(function() {
         if (timeAllowed < 0) {
+            timeAllowed = 0;
             quizCompleted();
             clearInterval(timeLeft);
         } else {
@@ -146,9 +169,10 @@ function quizStarted() {
             buttonClicked.addEventListener("click", function() {
                 startButtonContainer.innerHTML='';
                 if(codingQuiz[currentQuestion].choices[j] === codingQuiz[currentQuestion].answer) {
-                    rightOrWrong.innerHTML = "<p id='result-response'>Correcto!</p>";
+                    bottomContainer.innerHTML = "<p id='result-response'>Correcto!</p>";
                 } else {
-                    rightOrWrong.innerHTML = "<p id='result-response'>Wrong!</p>";
+                    bottomContainer.innerHTML = "<p id='result-response'>Wrong!</p>";
+                    timeAllowed -= 65;
                 }
                 removeAnswerChoices(currentQuestion);
                 currentQuestion++;
