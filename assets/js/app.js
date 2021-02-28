@@ -50,6 +50,7 @@ var olParentNode = document.getElementById("answers-list");
 var quizForm = document.getElementById("quiz-form");
 var currentQuestion = 0;
 var timeAllowed = 0;
+var timeLeft;
 let score = 0;
 
 
@@ -144,8 +145,8 @@ var removeAnswerChoices = (currentQuestion) => {
 // }
 
 var quizCompleted = () => {
-    //clearInterval(timeLeft);
-    //score = timeLeft;
+    clearInterval(timeLeft);
+    score = timeLeft; 
     quizQuestion.textContent = "";
     choiceContainer.textContent = "";
     bottomContainer.textContent = "";
