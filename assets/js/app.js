@@ -138,11 +138,23 @@ var removeAnswerChoices = (currentQuestion) => {
         }
     }
 }
-
-// //Check if countdown timer is still > 0
-// var stillTimeLeft = function(timeAllowed) {
-//     timeAllowed > 0 ? true : false;
-// }
+var storeScore = function() {
+    var goBackButton = document.getElementById("goBackButton");
+    var clearScore = document.getElementById("clearScore");
+    goBackButton.addEventListener("click", function() {
+        quizQuestion.textContent = "";
+        choiceContainer.textContent = "";
+        bottomContainer.textContent = "";
+        landingPage();
+    });
+    clearScore.addEventListener("click", function() {
+        quizQuestion.textContent = "";
+        choiceContainer.textContent = "";
+        bottomContainer.textContent = "";
+        quizQuestion.textContent = "High Scores";
+    choiceContainer.innerHTML = `<li>${userInitials}</li>`;
+    });
+}
 
 var quizCompleted = () => {
     clearInterval(timeLeft);
@@ -157,6 +169,8 @@ var quizCompleted = () => {
     <input type="text" id="initials" name="initials">
     <input type="submit" value="Submit">
     </form>`;
+
+    //submitInitialsAndScore();
     var initialSubmit = document.getElementById("submit-form");
     //var userInitials = document.querySelector("input[name='initials']").value;
     var userInitials = document.querySelector("#initials").value;
@@ -173,15 +187,16 @@ var quizCompleted = () => {
             <button type="button" value="goBack" id="goBackButton">Go Back</button>
             <button type="button" value="clearScore" id="clearScore">Clear High Scores</button>`;
     });
+    storeScore();
 }
 
-function displayScore() {
-    quizQuestion.textContent = "";
-    choiceContainer.textContent = "";
-    bottomContainer.textContent = "";
-    quizQuestion.textContent = "High Scores";
-    choiceContainer.innerHTML = "<li>userInitials</li>"
-}
+// var storeScore = function() {
+//     quizQuestion.textContent = "";
+//     choiceContainer.textContent = "";
+//     bottomContainer.textContent = "";
+//     quizQuestion.textContent = "High Scores";
+//     choiceContainer.innerHTML = "<li>userInitials</li>"
+// }
 
 // //Check if countdown timer is still > 0
 // var stillTimeLeft = function(timeAllowed) {
