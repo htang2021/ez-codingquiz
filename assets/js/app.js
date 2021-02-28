@@ -36,6 +36,7 @@ const introduction = "Try to answer the following code-related questions " +
 var introTitle = document.querySelector(".introTitle");
 var intro = document.querySelector(".intro");
 var writeUp = document.getElementById("intro-writeup");
+var choiceContainer = document.getElementById("choiceContainer");
 var quizQuestion = document.getElementById("quiz-question");
 var initializeTimer = document.getElementById("countdown-timer");
 var startButtonContainer = document.querySelector(".bottom-section");
@@ -95,11 +96,23 @@ var stillTimeLeft = function(timeAllowed) {
     timeAllowed > 0 ? true : false;
 }
 
+var quizCompleted = function() {
+    quizQuestion.textContent = "";
+    choiceContainer.textContent = "";
+    quizQuestion.textContent = "All Done!";
+    choiceContainer.innerHTML = `<p>Your final score is ${timeAllowed + 1}.
+    <br>
+    <label for="initials">Enter Initials</label>
+    <input type="text" id="initials" name="initials">
+    <input type="submit" value="Submit">`
+}
+
 //Counting down from 75 seconds
 var countDownClock = function() {
     timeAllowed = 75;
     var timeLeft = setInterval(function() {
         if (timeAllowed < 0) {
+            quizCompleted();
             clearInterval(timeLeft);
         } else {
             document.getElementById("timer").innerHTML = "Time: " + timeAllowed;
@@ -137,8 +150,9 @@ function quizStarted() {
                 } else {
                     rightOrWrong.innerHTML = "<p id='result-response'>Wrong!</p>";
                 }
-                currentQuestion++;
                 removeAnswerChoices(currentQuestion);
+                currentQuestion++;
+                //removeAnswerChoices(currentQuestion);
                 nextQuestion(currentQuestion);
                     
             }); 
@@ -164,65 +178,6 @@ startingQuiz ();
 
 
 
-// remove list of answer choices once answer is chosen
-// var removeAnswerChoices = function(i, numAnswerChoices) {
-//     var ulParentNode = document.getElementById("answers-list");
-//     for (let j=0; j < 4; j++) {
-//         if (ulParentNode.hasChildNodes()) {
-//             ulParentNode.removeChild(ulParentNode.childNodes[0]);
-//         }
-//     }
-// }
-
-
-//function to cycle through the list of questions that can be manipulated freely***********
-
-// var startQuiz = function() {
-//     var numberOfQuestions = codingQuiz.length;
-//     //var answersChoicesEl = document.querySelector("#answers-list");
-//     for (let i=0; i < numberOfQuestions; i++) {
-//         document.getElementById("quiz-question").innerHTML = codingQuiz.questions[i];
-//         var numAnswerChoices = codingQuiz.answerChoices[i].length;
-
-//         var listChoice = document.getElementById("list-choice");
-//         for (let j=0; j < numAnswerChoices; j++){
-            
-//             var addListItem = document.createElement("LI");
-//             addListItem.id = "listed-choices";
-//             var addBtnItem = document.createElement("button");
-//             document.getElementById("listed-choices").appendChild(addBtnItem);
-
-//             addListItem.innerHTML = codingQuiz.answerChoices[i][j];
-//             document.getElementById("answers-list").appendChild(addListItem);
-
-            
-//             document.getElementById()
-//             //buttons.innerHTML = codingQuiz.answerChoices[i][j];
-
-//         }
-//         // if user answered to question, remove the list of choices and onto the next
-//         isQuestionAnswered ();
-//         var answered=true;
-//         if (answered) {
-//             removeAnswerChoices(i, numAnswerChoices);
-//         }
-//     }
-// }
-
-//startQuiz();
-// create a function to check the answers
-
-
-// create a function to cycle through the list of questions/objects
-
-// var cyclingQuestions = function () {
-//     // submit button is clicked, go to the next question
-//     var clicked = true;
-//     while (clicked) {
-//         console.log("Next!");
-//     }
-//     return "Completed";
-// }
 
 // an object that stores user initials & scores
 
