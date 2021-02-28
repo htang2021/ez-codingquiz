@@ -138,23 +138,23 @@ var removeAnswerChoices = (currentQuestion) => {
         }
     }
 }
-var storeScore = function() {
-    var goBackButton = document.getElementById("goBackButton");
-    var clearScore = document.getElementById("clearScore");
-    goBackButton.addEventListener("click", function() {
-        quizQuestion.textContent = "";
-        choiceContainer.textContent = "";
-        bottomContainer.textContent = "";
-        landingPage();
-    });
-    clearScore.addEventListener("click", function() {
-        quizQuestion.textContent = "";
-        choiceContainer.textContent = "";
-        bottomContainer.textContent = "";
-        quizQuestion.textContent = "High Scores";
-    choiceContainer.innerHTML = `<li>${userInitials}</li>`;
-    });
-}
+// var storeScore = function() {
+//     var goBackButton = document.getElementById("goBackButton");
+//     var clearScore = document.getElementById("clearScore");
+//     goBackButton.addEventListener("click", landingPage);// {
+//         // quizQuestion.textContent = "";
+//         // choiceContainer.textContent = "";
+//         // bottomContainer.textContent = "";
+//     //     landingPage();
+//     // });
+//     clearScore.addEventListener("click", function() {
+//         quizQuestion.textContent = "";
+//         choiceContainer.textContent = "";
+//         bottomContainer.textContent = "";
+//         quizQuestion.textContent = "High Scores";
+//     choiceContainer.innerHTML = `<li>${userInitials}</li>`;
+//     });
+// }
 
 var quizCompleted = () => {
     clearInterval(timeLeft);
@@ -170,10 +170,25 @@ var quizCompleted = () => {
     <input type="submit" value="Submit">
     </form>`;
 
+    // var userInitialsInputForm = document.createElement("form");
+    // userInitialsInputForm.id = "submit-form";
+
+    // var userInitialInputField = document.createElement("input");
+    // userInitialInputField.type = "text";
+    // userInitialInputField.id = "initials";
+    // userInitialInputField.name = "initials";
+
+    // var userInitialsSubmitButton = document.createElement("button");
+    // userInitialsSubmitButton.type = "submit";
+    // userInitialsSubmitButton.value = "Submit";
+
+    // userInitialsInputField.appendChild(userInitialsSubmitButton);
+    // userInitialsInputForm.appendChild(userInitialInputField);
+
     //submitInitialsAndScore();
     var initialSubmit = document.getElementById("submit-form");
-    //var userInitials = document.querySelector("input[name='initials']").value;
-    var userInitials = document.querySelector("#initials").value;
+    var userInitials = document.querySelector("input[name='initials']").value;
+    //var userInitials = document.querySelector("#initials").value;
     console.log(`Initial entered is: ${userInitials}`);
     //choiceContainer.appendChild(initialSubmit);
     initialSubmit.addEventListener("submit", function() {
@@ -184,11 +199,47 @@ var quizCompleted = () => {
 
         quizQuestion.textContent = "High Scores";
         choiceContainer.innerHTML = `<li>${userInitials} - ${timeAllowed+1}</li><br>
-            <button type="button" value="goBack" id="goBackButton">Go Back</button>
+            <button type="button" value="goBack" id="goBack">Go Back</button>
             <button type="button" value="clearScore" id="clearScore">Clear High Scores</button>`;
     });
-    storeScore();
+    //storeScore();
+    window.onload = function() {
+        var goBackButton = document.getElementById("goBack");
+        var clearScore = document.getElementById("clearScore");
+        goBackButton.addEventListener("click", landingPage);// {
+            // quizQuestion.textContent = "";
+            // choiceContainer.textContent = "";
+            // bottomContainer.textContent = "";
+        //     landingPage();
+        // });
+        clearScore.addEventListener("click", function() {
+            quizQuestion.textContent = "";
+            choiceContainer.textContent = "";
+            bottomContainer.textContent = "";
+            quizQuestion.textContent = "High Scores";
+        choiceContainer.innerHTML = `<li>${userInitials}</li>`;
+        });
+    }
 }
+
+// var storeScore = function() {
+//     var goBackButton = document.getElementById("goBackButton");
+//     var clearScore = document.getElementById("clearScore");
+//     goBackButton.addEventListener("click", landingPage);// {
+//         // quizQuestion.textContent = "";
+//         // choiceContainer.textContent = "";
+//         // bottomContainer.textContent = "";
+//     //     landingPage();
+//     // });
+//     clearScore.addEventListener("click", function() {
+//         quizQuestion.textContent = "";
+//         choiceContainer.textContent = "";
+//         bottomContainer.textContent = "";
+//         quizQuestion.textContent = "High Scores";
+//     choiceContainer.innerHTML = `<li>${userInitials}</li>`;
+//     });
+// }
+
 
 // var storeScore = function() {
 //     quizQuestion.textContent = "";
