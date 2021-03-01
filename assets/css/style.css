@@ -6,13 +6,11 @@
 body {
     margin: 30px 50px;
     width: 90%;
-    border: 1px solid black;
 }
 .top-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    border: 1px solid red;
     padding: 20px;
 }
 .view-highscores a {
@@ -27,13 +25,10 @@ body {
     font-weight: bolder;
     margin-right: 80px;
     min-width: 80px;
-
-    border: 1px solid blue;
 }
 .quiz-section {
     display:flex;
     flex-direction: column;
-    border: 1px solid blue;
     width: 70%;
     align-items: center;
     margin: 0 13%;
@@ -42,7 +37,6 @@ body {
     text-align: left;
 }
 .top-section {    /* same element as questionContainer */
-    border: 1px solid brown;
     width: 80%;
     display: block;
     text-align:left;
@@ -53,7 +47,6 @@ body {
     margin: 10px 0;
 }
 .answer-choices {   /* same element as choiceContainer */
-    border: 2px solid greenyellow;
     width: 80%;
     min-height: 30px;
 }
@@ -71,8 +64,6 @@ li button {
     background-color: rgb(44, 40, 54);
     color: white;
     min-width: 100px;
-    /* width: auto; */
-    /* width:max-content; */
     padding: 5px;
     border-radius: 5px;
     text-align: left;
@@ -92,13 +83,12 @@ li button:focus {
 }
 .bottom-section {
     margin-top: 20px;
-    border: 1px solid red;
     height: 50px;
 }
 .bottom-section button {
     text-align: center;
     color: white;
-    background-color: rgb(44, 40, 54);
+    background-color: rgb(71, 49, 128);
     border-radius: 5px;
     padding: 5px;
     width: 100px;
