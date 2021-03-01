@@ -50,6 +50,7 @@ var olParentNode = document.getElementById("answers-list");
 var currentQuestion = 0;
 var timeAllowed = 0;
 let scoreBoard=[];
+let score = 0;
 let scoreIndex = 0;
 
 // Check if countdown timer is still > 0 *******************
@@ -162,8 +163,11 @@ var goBackOrClear = function(goBackButton, clearScore) {
 
 // Write userInitials & scores to array *************************
 var writeUserInitialsAndScoreToArray = (userInitials, score) => {
-    var scoreBoard = [];
+    //var scoreBoard = [{}];
     scoreBoard.push({'storedInitial': userInitials, 'storedScore': score});
+    // console.log(scoreBoard[scoreIndex]);
+    // scoreIndex++;
+    return;
 }
 
 // Initials and score handling *******************************
