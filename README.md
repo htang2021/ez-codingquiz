@@ -1,7 +1,9 @@
 # A Timed Coding Quiz Challenge
 
 ## Project Objective
-
+Develop a coding quiz assessment to evaluate a developer's coding knowledge
+and to use this as a baseline and to continue to expand to qualify candidates 
+later on.  
 
 ## User Story
 - AS A coding boot camp student
@@ -27,10 +29,12 @@ The following animation demonstrates the application functionality:
 ![](assets/images/04-web-apis-homework-demo-1.gif)
 
 
-## Github Location
+## Github Location:
+https://github.com/htang2021/ez-codingquiz
+
+## Deployed Application Live URL:
+https://htang2021.github.io/ez-codingquiz/
 
 
-## Deployed Application URL:
-
-
+End of README.md - modified by Hung Tang on 2/28/21
 
