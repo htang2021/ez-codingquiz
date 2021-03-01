@@ -65,7 +65,7 @@ const codingQuizChallenge = function() {
     document.querySelector(".bottom-section").style.width = "60%";
     introTitle.style.textAlign = "center";
     introTitle.textContent = "Coding Quiz Challenge";
-    writeUp.textContent = introduction;
+    writeUp.innerHTML = introduction;
     initializeTimer.textContent = "Time: 0";
     startButtonContainer.innerHTML = "<button id='start-button'>Start Quiz</button>";
     startingQuiz ();
@@ -94,12 +94,13 @@ var checkAnswer = () => {
                     removeAnswerChoices(currentQuestion-1);
                     nextQuestion(currentQuestion);
                 } else {
+                    countDownClock(0);
                     quizCompleted();
                 }  
             }); 
         }
     } else {
-        //clearInterval(timeLeft);
+        countDownClock(0);
         quizCompleted();
     }
 }
@@ -124,7 +125,7 @@ var nextQuestion = (currentQuestion) => {
         }
         checkAnswer();
     } else {
-        //clearInterval(timeLeft);
+        countDownClock(0);
         quizCompleted();
     }
 }
@@ -161,12 +162,39 @@ var goBackOrClear = function(goBackButton, clearScore) {
     });
 }
 
+// View score board stored on localStorage*****************
+var viewScoreBoard = (keepingScore) => {
+    var viewScore = document.getElementById("view-score");
+    viewScore.addEventListener("click", function() {
+        headerSection.style.visibility = "hidden";
+        quizQuestion.textContent = "";
+        choiceContainer.textContent = "";
+        bottomContainer.textContent = "";
+        quizQuestion.textContent = "High Scores";
+        quizQuestion.style.textAlign = "left";
+        choiceContainer.innerHTML = `${keepingScore}<br>
+            <br>
+            <button type="button" value="goBack" id="goBack">Go Back</button>
+            <button type="button" value="clearScore" id="clearScore">Clear High Scores</button>`;
+    });
+
+    var goBackButton = document.getElementById("goBack");
+    var clearScore = document.getElementById("clearScore");
+
+    goBackOrClear(goBackButton, clearScore);
+}
+
+
 // Write userInitials & scores to array *************************
 var writeUserInitialsAndScoreToArray = (userInitials, score) => {
     //var scoreBoard = [{}];
     scoreBoard.push({'storedInitial': userInitials, 'storedScore': score});
-    // console.log(scoreBoard[scoreIndex]);
-    // scoreIndex++;
+    
+    var keepingScore = JSON.stringify(scoreBoard);
+    //send what's in array to localStorage
+    viewScoreBoard(keepingScore);
+    // localStorage.setItem("storedInitial", userInitials);
+    // localStorage.setItem("storedScore", score);
     return;
 }
 
@@ -192,9 +220,11 @@ var initialAndScoreSubmissionHandler = (txtInitials) => {
         goBackOrClear(goBackButton, clearScore);
 }
 
+
+
 // Quiz completed or stopped ***************************
 var quizCompleted = () => {
-    countDownClock(0);
+    countDownClock(0); // stop the countdown
     quizQuestion.textContent = "";
     //choiceContainer.textContent = "";
     writeUp.textContent = "";
@@ -217,7 +247,8 @@ var quizCompleted = () => {
 
 // Counting down from 75 seconds **************************
 var countDownClock = function(goOrStop) {
-    if (goOrStop === 1) {  //1 for go and anything else for stop
+    let flag = goOrStop;
+    if (flag === 1) {  //1 for go and anything else for stop
         timeAllowed = 75;
         var countDown = setInterval(startCounting, 1000);
 
@@ -230,7 +261,6 @@ var countDownClock = function(goOrStop) {
                 document.getElementById("timer").innerHTML = "Time: " + timeAllowed;
             }
             timeAllowed -=1;
-            stillTimeLeft(timeAllowed);
         }
     } else {
         clearInterval(countDown);
@@ -240,7 +270,6 @@ var countDownClock = function(goOrStop) {
 // Quiz has begun! *****************************************
 function quizStarted() {
     //clear the content in the container
-    //intro.removeChild(writeUp);
     writeUp.textContent = '';
     startButtonContainer.innerHTML='';
     currentQuestion = 0;
@@ -266,7 +295,7 @@ codingQuizChallenge();
 
 // create a function that saves scores and user initials to localStorage
 
-//localStorage.setItem(storeScoresObject);
+//localStorage.setItem(scoreBoard);
 
 
 //write to storage
